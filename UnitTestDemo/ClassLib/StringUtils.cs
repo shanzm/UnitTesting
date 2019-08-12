@@ -29,7 +29,7 @@ namespace ClassLib
         public static string Reverse(string str)
         {
             //"\s"匹配任意的空白符
-            string[] strArray = Regex.Split(str, @"\s").Reverse().ToArray();
+            string[] strArray = Regex.Split(str, @"\s+").Reverse().ToArray();
             return string.Join(" ", strArray);
 
             #region 第三次重构

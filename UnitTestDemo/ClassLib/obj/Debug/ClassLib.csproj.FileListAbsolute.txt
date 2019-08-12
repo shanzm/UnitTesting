@@ -3,3 +3,8 @@ D:\我的文档\Visual Studio 2015\Projects\UnitTestDemo\ClassLib\bin\Debug\Clas
 D:\我的文档\Visual Studio 2015\Projects\UnitTestDemo\ClassLib\obj\Debug\ClassLib.csprojResolveAssemblyReference.cache
 D:\我的文档\Visual Studio 2015\Projects\UnitTestDemo\ClassLib\obj\Debug\ClassLib.dll
 D:\我的文档\Visual Studio 2015\Projects\UnitTestDemo\ClassLib\obj\Debug\ClassLib.pdb
+F:\ForGit\UnitTesting\UnitTestDemo\ClassLib\bin\Debug\ClassLib.dll
+F:\ForGit\UnitTesting\UnitTestDemo\ClassLib\bin\Debug\ClassLib.pdb
+F:\ForGit\UnitTesting\UnitTestDemo\ClassLib\obj\Debug\ClassLib.csprojResolveAssemblyReference.cache
+F:\ForGit\UnitTesting\UnitTestDemo\ClassLib\obj\Debug\ClassLib.dll
+F:\ForGit\UnitTesting\UnitTestDemo\ClassLib\obj\Debug\ClassLib.pdb
