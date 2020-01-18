@@ -1,14 +1,18 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ClassLib;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace UnitTestClass
+namespace ClassLib.Tests
 {
     [TestClass]
-    public class TestStringUtils
+    public class StringUtilsTest
     {
         [TestMethod]
-        public void TestReverse()
+        public void ReverseTest1()
         {
             var OriginalString = "I am Shanzm";
             var ActualResult = StringUtils.Reverse(OriginalString);
@@ -16,7 +20,7 @@ namespace UnitTestClass
         }
 
         [TestMethod]
-        public void TestReverse2()
+        public void ReverseTest2()
         {
             var OriginalString = "I am         Shanzm";
             var ActualResult = StringUtils.Reverse(OriginalString);

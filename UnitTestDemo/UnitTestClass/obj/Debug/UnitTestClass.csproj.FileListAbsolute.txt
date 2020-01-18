@@ -1,9 +1,0 @@
-D:\我的文档\Visual Studio 2015\Projects\UnitTestDemo\UnitTestClass\bin\Debug\UnitTestClass.dll
-D:\我的文档\Visual Studio 2015\Projects\UnitTestDemo\UnitTestClass\bin\Debug\UnitTestClass.pdb
-D:\我的文档\Visual Studio 2015\Projects\UnitTestDemo\UnitTestClass\bin\Debug\ClassLib.dll
-D:\我的文档\Visual Studio 2015\Projects\UnitTestDemo\UnitTestClass\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
-D:\我的文档\Visual Studio 2015\Projects\UnitTestDemo\UnitTestClass\bin\Debug\ClassLib.pdb
-D:\我的文档\Visual Studio 2015\Projects\UnitTestDemo\UnitTestClass\bin\Debug\zh-Hans\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
-D:\我的文档\Visual Studio 2015\Projects\UnitTestDemo\UnitTestClass\obj\Debug\UnitTestClass.csprojResolveAssemblyReference.cache
-D:\我的文档\Visual Studio 2015\Projects\UnitTestDemo\UnitTestClass\obj\Debug\UnitTestClass.dll
-D:\我的文档\Visual Studio 2015\Projects\UnitTestDemo\UnitTestClass\obj\Debug\UnitTestClass.pdb

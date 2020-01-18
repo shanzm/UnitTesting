@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ED007810-69BD-45CE-B7E4-BBB4C0AE7B3A}</ProjectGuid>
+    <ProjectGuid>{E2050FBD-1EA2-4D59-A3F9-3F5ED1523862}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTestClass</RootNamespace>
-    <AssemblyName>UnitTestClass</AssemblyName>
+    <RootNamespace>ClassLibTests</RootNamespace>
+    <AssemblyName>ClassLibTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -46,20 +46,18 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
-          <Private>False</Private>
-        </Reference>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="TestMyClass.cs" />
+    <Compile Include="CalculatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestStringUtils.cs" />
+    <Compile Include="StringUtilsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClassLib\ClassLib.csproj">
-      <Project>{48e6f123-7f8a-4907-94db-e1208ff517f0}</Project>
+      <Project>{48E6F123-7F8A-4907-94DB-E1208FF517F0}</Project>
       <Name>ClassLib</Name>
     </ProjectReference>
   </ItemGroup>

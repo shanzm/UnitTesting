@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 
 namespace ClassLib
 {
-    public class MyClass
+    public class Calculator
     {
         public int DoubleValue(int i)
         {

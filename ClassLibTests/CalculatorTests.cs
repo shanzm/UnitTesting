@@ -1,20 +1,23 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ClassLib;
-using System.Data.SqlClient;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 
-namespace ClassLibTestProject
+//注意 [TestClass]和[TestClass()]，[TestMethod()]和[TestMethod]写法等价
+namespace ClassLib.Tests
 {
-    [TestClass]
-    public class TestMyClass
+    [TestClass()]
+    public class CalculatorTests
     {
-
-        [TestMethod]
-        public void TestDoubleValue()
+        [TestMethod()]
+        public void DoubleValueTest1()
         {
             //Arrange:准备，实例化一个带测试的类
-            MyClass obj = new MyClass();
+            Calculator obj = new Calculator();
 
             //Test Case:设计测试案例
             int value = 2;
@@ -27,17 +30,17 @@ namespace ClassLibTestProject
             Assert.AreEqual(expected, actual);
         }
 
-
-        public TestContext TestContext { get; set; }//注意为了获取数据的数据，我们要自定义一个TestContext属性
-        [TestMethod]
+        
+        public TestContext TestContext { get; set; }//注意为了获取数据库的数据，我们要自定义一个TestContext属性
+        [TestMethod()]
         [DataSource("System.Data.SqlClient",
-            @"server=.;database=db_Tome1;uid=sa;pwd=shanzm" , 
-            "szmUnitTestDemo", 
+            @"server=.;database=db_Tome1;uid=sa;pwd=shanzm",
+            "szmUnitTestDemo",
             DataAccessMethod.Sequential)]
-        public void TestDoubleVlaue2()
+        public void DoubleValueTest2()
         {
             //Arrange
-            MyClass target = new MyClass();
+            Calculator target = new Calculator();
             //TestCase
             int value = Convert.ToInt32(TestContext.DataRow["Input"]);
             int expected = Convert.ToInt32(TestContext.DataRow["Expected"]);
@@ -62,21 +65,20 @@ namespace ClassLibTestProject
         #endregion
 
 
-
         //因为Sum()函数代码中有抛出异常，所以哦我们要测试期望抛出的异常
         //异常测试，添加特性ExpectedException
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void TestSum1()
+        public void SumTest1()
         {
-            MyClass obj = new MyClass();
+            Calculator obj = new Calculator();
             obj.Sum(100, 50);
         }
 
         [TestMethod]
-        public void TestSum2()
+        public void SumTest2()
         {
-            MyClass obj = new MyClass();
+            Calculator obj = new Calculator();
 
             int from = 1, to = 10;
             int expected = 55;
@@ -87,9 +89,9 @@ namespace ClassLibTestProject
         }
 
         [TestMethod]
-        public void TestCaculateAge1()
+        public void CaculateAgeTest1()
         {
-            MyClass obj = new MyClass();
+            Calculator obj = new Calculator();
 
             DateTime dt = new DateTime(1995, 10, 15);
             int expected = 24;
@@ -100,21 +102,20 @@ namespace ClassLibTestProject
         }
 
         [TestMethod]
-        public void TestCaculateAge2()
+        public void CaculateAgeTest2()
         {
             try
             {
-                MyClass target = new MyClass();
+                Calculator target = new Calculator();
                 target.CaculateAge(DateTime.Now.AddDays(1));
             }
             catch (ArgumentOutOfRangeException e)
             {
-                StringAssert.Contains(e.Message, MyClass.AgeErrorString);
+                StringAssert.Contains(e.Message, Calculator.AgeErrorString);
                 return;
             }
             Assert.Fail("No Exception was thrown");//断言这个测试案例是失败，若是测试的时候若是真的失败了，则测试通过
         }
-
 
     }
 }
