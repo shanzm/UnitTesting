@@ -99,6 +99,8 @@ namespace ClassLib.Tests
             int actual = obj.CaculateAge(dt);
 
             Assert.AreEqual(expected, actual);
+            //注意这里actual=25，expected=24，
+            //测试是无法通过的，只是为了演示测试不通过的样子
         }
 
         [TestMethod]

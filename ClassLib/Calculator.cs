@@ -65,7 +65,7 @@ namespace ClassLib
         {
             if (DateTime.Now<Birthday )
             {
-                throw new ArgumentOutOfRangeException(AgeErrorString);
+               throw new ArgumentOutOfRangeException(AgeErrorString);
             }
             return DateTime.Now.Year - Birthday.Year;
         }
