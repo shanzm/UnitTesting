@@ -1,6 +1,20 @@
-## 使用MSTest框架对 .NET程序单元测试（入门级）
+## 使用MSTest框架对 .NET程序单元测试（入门级） {ignore=true}
 
-[TOC]
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+目录
+- [1.单元测试概念](#1单元测试概念)
+- [2.单元测试的原则](#2单元测试的原则)
+- [3.单元测试实例](#3单元测试实例)
+  - [3.1一个简单的手写单元测试实例](#31一个简单的手写单元测试实例)
+  - [3.2使用VS中自带的单元测试框架MSTest](#32使用vs中自带的单元测试框架mstest)
+  - [3.3单元测试中的断言Assert](#33单元测试中的断言assert)
+- [参考](#参考)
+
+<!-- /code_chunk_output -->
+
 
 ### 1.单元测试概念
 
@@ -139,26 +153,39 @@ public static void CalculatorDoubleValueTest()
 
 新建项目--->选择测试类项目中的单元测试项目，命名为"被测试项目名+Tests"
 
-测试函数的命名按照被"测试函数名+Test"格式命名
+测试类的命名为“被测试的类+Tests”
 
-当然在VS中也可以在想要测试的函数上右键，创建单元测试，弹出如下窗口，直接点击确定即可
+测试函数的命名按照被"**[被测方法]_ [测试场景]_[预期行为]**"格式命名
+  * 方法名——被测试的方法
+  * 测试场景——能产生预期行为的条件
+  * 预期行为——在给定条件下，期望被测试方法产生什么结果
+
+当然在VS中也可以在想要测试的函数上右键，创建单元测试，弹出如下窗口，直接点击确定即可,即可生成默认的单元测试代码模版。
+
+但是《.NET单元测试艺术》中对测试函数的命名格式推荐为：
+
+
 
 ![新建单元测试](新建单元测试.png)
 
-这里先使用默认自带的MSTest框架，使用默认的命名格式，会自动生成相应的测试项目和测试函数格式，
-编写如下：
+这里先使用默认自带的MSTest框架，使用默认的命名格式，会自动生成相应的测试项目和测试函数格式。
 
-**编写单元测试的代码，一般按照Arrange-->TestCase-->Act-->Assert四部编写**
+编写单元测试的代码，一般按照以下四步编写:
+**Arrange:配置测试对象**
+**TestCase:准备测试案例**
+**Act:操作测试对象**
+**Assert:对操作断言**
+
 
 ```cs
 //注意 [TestClass]和[TestClass()]，[TestMethod()]和[TestMethod]写法等价
 namespace ClassLib.Tests
 {
-    [TestClass()]
+    [TestClass()]//通过标注该特性标签表明该类为测试类
     public class CalculatorTests
     {
-        [TestMethod()]
-        public void DoubleValueTest1()
+        [TestMethod()]//通过标注该特性标签表明该函数为测试函数
+        public void DoubleValueTest_DoubleValue_ReturnTrue()
         {
             //Arrange:准备，实例化一个带测试的类
             Calculator obj = new Calculator();
@@ -181,11 +208,15 @@ namespace ClassLib.Tests
 
 ![运行](运行.gif)
 
-注意：我是使用的不是VS Enterprise版本故无法直接查看代码的测试覆盖率，可以使用插件OpenCover或NCover等工具
+上面运行显示测试通过显示的是绿色的标志，若是测试不通过则会则显示红色标志，在单元测试中有一种“红绿灯”的概念（你是使用其他的单元测试框架也是同样的红绿标志）。
+
+在测试驱动开发的流程中，就是“红灯-->修改-->绿灯-->重构-->绿灯”的开发流程。
+
+注意：我是使用的不是VS Enterprise版本故无法直接查看代码的测试覆盖率，可以使用插件OpenCover或NCover等其他工具查看单元测试的覆盖率。
 
 上面只是演示了怎么进行一次单元测试，但是实际中我们的测试案例不能仅仅一个，所以要添加多个测试，以提高到测试的完备性
 
-对需要大量测试案例的，可以把测试数据存放在专门的用于测试使用的数据库中，在测试时通过连接数据库，使用数据库中的数据进行测试
+若是对需要大量测试案例的，可以把测试数据存放在专门的用于测试使用的数据库中，在测试时通过连接数据库，使用数据库中的数据进行测试
 
 依旧是上面的示例，把大量的测试案例存放在数据库
 
@@ -208,7 +239,7 @@ Id                   Input       Expected
             @"server=.;database=db_Tome1;uid=sa;pwd=shanzm",//数据库连接字符串
             "szmUnitTestDemo",//测试数据存放的表
             DataAccessMethod.Sequential)]//对表中的数据测试的顺序，可以是顺序的，也可以是随机的，这里是我们选择顺序
-public void DoubleValueTest2()
+public void DoubleValueTest_DoubleValue_ReturnTrue()
 {
     //Arrange
     Calculator target = neCalculator();
@@ -221,6 +252,51 @@ public void DoubleValueTest2()
     Assert.AreEqual(expected, actual);
 }
 ```
+说明：
+1. 特性标签[TestClass] [TestMethod]
 
-#### 3.3单元测试中的断言使用
+   MSTest框架通过标签识别并加载测试
 
+   [TestClass]用来标识包含一个MSTest自动好测试的类，
+
+   [TestMethod]用来标识需要被调用的自动化测试的方法
+
+2. 特性标签[DataSource]标识用来测试的数据源，其的参数如下：
+
+   * 第一个参数是providername，即使用的数据源的命名空间，其实我们也是可是使用Excel表格的（菜单“项目”-->添加新的数据源……）参考：[CSDN:vs2015数据驱动的单元测试](https://blog.csdn.net/site008/article/details/77070945)
+
+     providername值参考：
+
+     * "system.data.sqlclient" ----说明使用的是mssqlserver数据库
+
+     * "system.data.sqllite" ----说明使用的是sqllite数据库
+
+     * "system.data.oracleclient" ----说明使用的是oracle数据库或
+
+     * "mysql.data.mysqlclient" ----说明使用的是mysql数据库
+
+    * 第二个参数是connectionString，我习惯是这样写：
+
+      `@"server=.;database=数据库;uid=用户ID;pwd=密码"`
+
+      但是推荐这样写：
+    
+      `@"Data Source=localhost;Initial Catalog=数据库;User ID=用户ID;Password=密码"`
+
+   * 3.第三个参数是tablename,选择使用的数据库中的哪张表
+
+   * 4.对表中的数据测试的顺序.
+   可以是顺序的：`DataAccessMethod.Sequential`，
+   可以是随机的:`DataAccessMethod.Random`。
+
+#### 3.3单元测试中的断言Assert
+
+1. `Assert.AreEqual(expectedObject,actualObject,message);`
+
+2. `Assert.Fail();`
+
+### 参考
+
+[书籍：.NET 单元测试的艺术]()
+[书籍：单元测试之道C#版](https://pan.baidu.com/s/11VuVW)
+[微软：dotnet文档](https://docs.microsoft.com/zh-cn/dotnet/core/testing/unit-testing-with-mstest)
