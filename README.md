@@ -1,4 +1,4 @@
-## 使用MSTest框架对 .NET程序单元测试（入门级） {ignore=true}
+## 使用MSTest框架对 C#程序单元测试 {ignore=true}
 
 
 <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
@@ -7,10 +7,11 @@
 目录
 - [1.单元测试概念](#1单元测试概念)
 - [2.单元测试的原则](#2单元测试的原则)
-- [3.单元测试实例](#3单元测试实例)
+- [3.单元测试简单示例](#3单元测试简单示例)
   - [3.1一个简单的手写单元测试实例](#31一个简单的手写单元测试实例)
-  - [3.2使用VS中自带的单元测试框架MSTest](#32使用vs中自带的单元测试框架mstest)
-  - [3.3单元测试中的断言Assert](#33单元测试中的断言assert)
+  - [3.2单元测试框架MSTest](#32单元测试框架mstest)
+- [4.单元测试中的断言Assert](#4单元测试中的断言assert)
+- [5.单元测试中验证预期的异常](#5单元测试中验证预期的异常)
 - [参考](#参考)
 
 <!-- /code_chunk_output -->
@@ -95,7 +96,7 @@
 
 * 一个测试只测试一个功能
 
-### 3.单元测试实例
+### 3.单元测试简单示例
 
 #### 3.1一个简单的手写单元测试实例
 
@@ -147,9 +148,13 @@ public static void CalculatorDoubleValueTest()
 ```
 通过上面的示例，简单的演示了单元测试是什么，但是实际中一般都是使用已有的单元测试框架。而且测试一个方法为了完备性一般都要到所有的逻辑路径进行测试，所以会对一个方法写多个测试方法。
 
-#### 3.2使用VS中自带的单元测试框架MSTest
+#### 3.2单元测试框架MSTest
 
-继续测试上述的Calculator类中的DoubleValue()
+单元测试一般都是使用现成的单元测试框架，关于.net的单元测试框架有许多，常见的有NUnit,MSTest等等。
+
+这里使用VS自带的MStest框架做简单的演示（一般推荐使用NUnit框架：Undone）
+
+演示的案例，继续测试上述的Calculator类中的DoubleValue()
 
 新建项目--->选择测试类项目中的单元测试项目，命名为"被测试项目名+Tests"
 
@@ -160,10 +165,7 @@ public static void CalculatorDoubleValueTest()
   * 测试场景——能产生预期行为的条件
   * 预期行为——在给定条件下，期望被测试方法产生什么结果
 
-当然在VS中也可以在想要测试的函数上右键，创建单元测试，弹出如下窗口，直接点击确定即可,即可生成默认的单元测试代码模版。
-
-但是《.NET单元测试艺术》中对测试函数的命名格式推荐为：
-
+当然在VS中也可以在想要测试的函数上右键，创建单元测试，弹出如下窗口，直接点击确定即可,即可生成默认的单元测试代码模版
 
 
 ![新建单元测试](新建单元测试.png)
@@ -236,8 +238,8 @@ Id                   Input       Expected
  public TestContext TestContext { get; set; }//注意为了获取数据库的数据，我们要自定义一个TestContext属性
 [TestMethod()]
 [DataSource("System.Data.SqlClient",
-            @"server=.;database=db_Tome1;uid=sa;pwd=shanzm",//数据库连接字符串
-            "szmUnitTestDemo",//测试数据存放的表
+            @"server=.;database=db_Tome1;uid=sa;pwd=shanzhiming",//数据库连接字符串
+            "tb_szmUnitTestDemo",//测试数据存放的表
             DataAccessMethod.Sequential)]//对表中的数据测试的顺序，可以是顺序的，也可以是随机的，这里是我们选择顺序
 public void DoubleValueTest_DoubleValue_ReturnTrue()
 {
@@ -283,20 +285,104 @@ public void DoubleValueTest_DoubleValue_ReturnTrue()
     
       `@"Data Source=localhost;Initial Catalog=数据库;User ID=用户ID;Password=密码"`
 
-   * 3.第三个参数是tablename,选择使用的数据库中的哪张表
+   * 第三个参数是tablename,选择使用的数据库中的哪张表
 
-   * 4.对表中的数据测试的顺序.
+   * 第四个参数确定对表中的数据测试的顺序.
    可以是顺序的：`DataAccessMethod.Sequential`，
-   可以是随机的:`DataAccessMethod.Random`。
+   可以是随机的:`DataAccessMethod.Random`
 
-#### 3.3单元测试中的断言Assert
+3. 特性标签总结([参考](https://www.cnblogs.com/ColdJokeLife/p/3158812.html))
 
-1. `Assert.AreEqual(expectedObject,actualObject,message);`
+| **MS Test Attribute**  | **用途**                                                     |
+| ---------------------- | ------------------------------------------------------------ |
+| [TestClass]            | 定义一个测试类，里面可以包含很多测试函数和初始化、销毁函数（以下所有标签和其他断言）。 |
+| [TestMethod]           | 定义一个独立的测试函数。                                     |
+| [ClassInitialize]      | 定义一个测试类初始化函数，每当运行测试类中的一个或多个测试函数时，这个函数将会在测试函数被调用前被调用一次（在第一个测试函数运行前会被调用）。 |
+| [ClassCleanup]         | 定义一个测试类销毁函数，每当测试类中的选中的测试函数全部运行结束后运行（在最后一个测试函数运行结束后运行）。 |
+| [TestInitialize]       | 定义测试函数初始化函数，每个测试函数运行前都会被调用一次。   |
+| [TestCleanup]          | 定义测试函数销毁函数，每个测试函数执行完后都会被调用一次。   |
+| [AssemblyInitialize]   | 定义测试Assembly初始化函数，每当这个Assembly中的有测试函数被运行前，会被调用一次（在Assembly中第一个测试函数运行前会被调用）。 |
+| [AssemblyCleanup]      | 定义测试Assembly销毁函数，当Assembly中所有测试函数运行结束后，运行一次。（在Assembly中所有测试函数运行结束后被调用） |
+| [DescriptionAttribute] | 定义标识分组。                                               |
 
-2. `Assert.Fail();`
+
+### 4.单元测试中的断言Assert
+
+* 断言是什么？可以从字面理解是“十分肯定的说”，在编程中可以通过 不同的断言来测试方法实际运行的结果和你期望的结果是否一致。
+
+* 断言是单元测试最基本的组成部分，Assert类的静态方法提供了不同形式的多种断言。
+
+MStest中Assert的常用静态方法：([参考](https://www.cnblogs.com/ColdJokeLife/p/3158812.html))：
+
+| **MS Test Assert**  | **用途**           |
+| ------------------- | ------------------ |
+| Assert.AreEqual()            | 验证值相等         |
+| Assert.AreNotEqual()         | 验证值不相等       |
+| Assert.AreSame()             | 验证引用相等       |
+| Assert.AreNotSame()          | 验证引用不相等     |
+| Assert.Inconclusive()        | 暗示条件还未被验证 |
+| Assert.IsTrue()              | 验证条件为真       |
+| Assert.IsFalse()             | 验证条件为假       |
+| Assert.IsInstanceOfType()    | 验证实例匹配类型   |
+| Assert.IsNotInstanceOfType() | 验证实例不匹配类型 |
+| Assert.IsNotNull()           | 验证条件为NULL     |
+| Assert.IsNull()              | 验证条件不为NULL   |
+| Assert.Fail()                | 验证失败           |
+
+
+### 5.单元测试中验证预期的异常
+
+若是程序中在某种特定的条件下有异常抛出，为了进行单元测试，我们设计指定的测试案例，期望在该测试案例程序抛出异常，并检验其是否抛出异常。
+
+简单示例：
+
+```cs
+        /// <summary>
+        /// 计算从from到to的所有整数的和
+        /// </summary>
+        public int Sum(int from, int to)
+        {
+            if (from > to)
+            {
+                throw new ArgumentException("参数from必须小于to");
+            }
+            int sum = 0;
+            for (int i = from; i <= to; i++)
+            {
+                sum += i;
+            }
+            return sum;
+        }
+```
+
+在程序中，若是参数`from` &gt;`to`则抛出异常`new ArgumentException("参数from必须小于to");`
+
+为了检验该程序在该条件下是否真的会抛出异常，可以创造测试案例from=100 &gt; to=50
+期望Sum()函数代码中执行：`throw new ArgumentException("参数from必须小于to");`，所以我们要测试期望抛出的异常`ArgumentException`。
+
+使用标签`[ExpectedException(typeof(“抛出的异常对象”))]`
+
+单元测试代码：
+```cs
+       
+        //异常测试，添加特性ExpectedException
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void SumTest_ArgumentException_TrowException()
+        {
+            Calculator bjCalcultor = new Calculator();
+            int from=100,to=50；
+            calc.Sum(from, to);
+        }
+```
+
+因为程序抛出了我们期望的异常，所以该测试通过
+
+![异常测试](异常测试.png)
 
 ### 参考
 
 [书籍：.NET 单元测试的艺术]()
 [书籍：单元测试之道C#版](https://pan.baidu.com/s/11VuVW)
 [微软：dotnet文档](https://docs.microsoft.com/zh-cn/dotnet/core/testing/unit-testing-with-mstest)
+[博客园：对比MS Test与NUnit Test框架](https://www.cnblogs.com/ColdJokeLife/p/3158812.html)
