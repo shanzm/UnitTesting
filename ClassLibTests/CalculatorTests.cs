@@ -13,39 +13,49 @@ namespace ClassLib.Tests
     [TestClass()]
     public class CalculatorTests
     {
-        [TestMethod()]
-        public void DoubleValueTest1()
+        //使用ClassInitialize标签初始化一个Calculator对象以供下面所有的测试([ClassCleanup]之前）使用
+        private static Calculator calc = null;
+        [ClassInitialize]
+        public static  void  ClassInit(TestContext testcontext)
         {
-            //Arrange:准备，实例化一个带测试的类
-            Calculator obj = new Calculator();
+           calc = new Calculator();
+        }
+
+
+        [TestMethod()]
+        public void DoubleValueTest_DoubleValue_ReturnTrue()
+        {
+            ////Arrange:准备，实例化一个带测试的类
+            //Calculator objCalcultor = new Calculator();
 
             //Test Case:设计测试案例
             int value = 2;
             int expected = 4;
 
             //Act：执行
-            int actual = obj.DoubleValue(value);
+            int actual = calc.DoubleValue(value);
 
             //Assert：断言
             Assert.AreEqual(expected, actual);
         }
 
-        
+
         public TestContext TestContext { get; set; }//注意为了获取数据库的数据，我们要自定义一个TestContext属性
         [TestMethod()]
         [DataSource("System.Data.SqlClient",
             @"server=.;database=db_Tome1;uid=sa;pwd=shanzm",
             "szmUnitTestDemo",
             DataAccessMethod.Sequential)]
-        public void DoubleValueTest2()
+        public void DoubleValueTest_DoubleValue_ReturnTrue2()
         {
-            //Arrange
-            Calculator target = new Calculator();
+            ////Arrange
+            //Calculator bjCalcultor = new Calculator();
+
             //TestCase
             int value = Convert.ToInt32(TestContext.DataRow["Input"]);
             int expected = Convert.ToInt32(TestContext.DataRow["Expected"]);
             //Act
-            int actual = target.DoubleValue(value);
+            int actual = calc.DoubleValue(value);
             //Assert
             Assert.AreEqual(expected, actual);
         }
@@ -69,21 +79,22 @@ namespace ClassLib.Tests
         //异常测试，添加特性ExpectedException
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void SumTest1()
+        public void SumTest_ArgumentException_TrowException()
         {
-            Calculator obj = new Calculator();
-            obj.Sum(100, 50);
+            Calculator calc = new Calculator();
+            int from = 100, to = 50;
+            calc.Sum(from, to);
         }
 
         [TestMethod]
         public void SumTest2()
         {
-            Calculator obj = new Calculator();
+            //Calculator objCalcultor = new Calculator();
 
             int from = 1, to = 10;
             int expected = 55;
 
-            int actual = obj.Sum(from, to);
+            int actual = calc.Sum(from, to);
 
             Assert.AreEqual(expected, actual);
         }
@@ -91,14 +102,14 @@ namespace ClassLib.Tests
         [TestMethod]
         public void CaculateAgeTest1()
         {
-            Calculator obj = new Calculator();
+            //Calculator objCalcultor = new Calculator();
 
             DateTime dt = new DateTime(1995, 10, 15);
             int expected = 24;
 
-            int actual = obj.CaculateAge(dt);
+            int actual = calc.CaculateAge(dt);
 
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expected, actual, "测试失败-----------");
             //注意这里actual=25，expected=24，
             //测试是无法通过的，只是为了演示测试不通过的样子
         }
@@ -108,8 +119,8 @@ namespace ClassLib.Tests
         {
             try
             {
-                Calculator target = new Calculator();
-                target.CaculateAge(DateTime.Now.AddDays(1));
+               // Calculator objCalcultor = new Calculator();
+                calc.CaculateAge(DateTime.Now.AddDays(1));
             }
             catch (ArgumentOutOfRangeException e)
             {
@@ -119,5 +130,10 @@ namespace ClassLib.Tests
             Assert.Fail("No Exception was thrown");//断言这个测试案例是失败，若是测试的时候若是真的失败了，则测试通过
         }
 
+        [ClassCleanup]
+        public static  void Classup()
+        {
+            calc = null;
+        }
     }
 }
