@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLib", "ClassLib\ClassLib.csproj", "{48E6F123-7F8A-4907-94DB-E1208FF517F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "001ClassLib", "001ClassLib\001ClassLib.csproj", "{48E6F123-7F8A-4907-94DB-E1208FF517F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibTests", "ClassLibTests\ClassLibTests.csproj", "{E2050FBD-1EA2-4D59-A3F9-3F5ED1523862}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "001ClassLibTests", "001ClassLibTests\001ClassLibTests.csproj", "{E2050FBD-1EA2-4D59-A3F9-3F5ED1523862}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCalculator", "TestCalculator\TestCalculator.csproj", "{BBE54F96-A851-41A7-A596-22511A0378A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "001TestCalculator", "001TestCalculator\001TestCalculator.csproj", "{BBE54F96-A851-41A7-A596-22511A0378A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "002MVCProject", "002MVCProject\002MVCProject.csproj", "{9F8B79E1-1FBD-4BAC-892F-19FBC30A4375}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "002MVCProjectTest", "002MVCProjectTest\002MVCProjectTest.csproj", "{EE3DACAD-0850-4776-8214-A2AEB86CEA3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{BBE54F96-A851-41A7-A596-22511A0378A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBE54F96-A851-41A7-A596-22511A0378A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBE54F96-A851-41A7-A596-22511A0378A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F8B79E1-1FBD-4BAC-892F-19FBC30A4375}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F8B79E1-1FBD-4BAC-892F-19FBC30A4375}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F8B79E1-1FBD-4BAC-892F-19FBC30A4375}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F8B79E1-1FBD-4BAC-892F-19FBC30A4375}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE3DACAD-0850-4776-8214-A2AEB86CEA3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE3DACAD-0850-4776-8214-A2AEB86CEA3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE3DACAD-0850-4776-8214-A2AEB86CEA3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE3DACAD-0850-4776-8214-A2AEB86CEA3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

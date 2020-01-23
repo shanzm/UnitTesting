@@ -63,12 +63,32 @@ namespace ClassLib
         /// <returns></returns>
         public int CaculateAge(DateTime Birthday)
         {
-            if (DateTime.Now<Birthday )
+            if (DateTime.Now < Birthday)
             {
-               throw new ArgumentOutOfRangeException(AgeErrorString);
+                throw new ArgumentOutOfRangeException(AgeErrorString);
             }
             return DateTime.Now.Year - Birthday.Year;
         }
+
+
+
+        //用于存储状态的结果用于以后的验证
+        public bool wasLastFileNameValid { get; set; }
+        //判断输入的字符串是否是.txt文件名
+        public bool isLastFilenameValid(string filename)
+        {
+            if (!(filename .ToLower()).EndsWith("txt"))
+            {
+                wasLastFileNameValid = false;
+                return false ;
+            }
+            else
+            {
+                wasLastFileNameValid = true;
+                return true;
+            }
+        }
+
 
     }
 }

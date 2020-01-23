@@ -55,9 +55,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLib\ClassLib.csproj">
-      <Project>{48E6F123-7F8A-4907-94DB-E1208FF517F0}</Project>
-      <Name>ClassLib</Name>
+    <ProjectReference Include="..\001ClassLib\001ClassLib.csproj">
+      <Project>{48e6f123-7f8a-4907-94db-e1208ff517f0}</Project>
+      <Name>001ClassLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

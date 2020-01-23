@@ -16,9 +16,9 @@ namespace ClassLib.Tests
         //使用ClassInitialize标签初始化一个Calculator对象以供下面所有的测试([ClassCleanup]之前）使用
         private static Calculator calc = null;
         [ClassInitialize]
-        public static  void  ClassInit(TestContext testcontext)
+        public static void ClassInit(TestContext testcontext)
         {
-           calc = new Calculator();
+            calc = new Calculator();
         }
 
 
@@ -119,21 +119,50 @@ namespace ClassLib.Tests
         {
             try
             {
-               // Calculator objCalcultor = new Calculator();
-                calc.CaculateAge(DateTime.Now.AddDays(1));
+                // Calculator objCalcultor = new Calculator();
+                calc.CaculateAge(DateTime.Now.AddDays(1));//这里的生日日期是当前时间加一天，所以会抛出ArgumentOutOfRangeException
             }
             catch (ArgumentOutOfRangeException e)
             {
+                //断言一个字符串是否包含另一字符串,其中第一个参数为被包含的字符串,第二个为实际字符串
                 StringAssert.Contains(e.Message, Calculator.AgeErrorString);
                 return;
             }
             Assert.Fail("No Exception was thrown");//断言这个测试案例是失败，若是测试的时候若是真的失败了，则测试通过
         }
 
+        [TestMethod]
+        [Ignore]
+        public void testIngore()
+        {
+            Console.WriteLine("使用[Ignore]标签则会使测试框架忽视该单元测试函数");
+        }
+
+        [TestMethod]
+        [TestCategory("给测试分类")]
+        public void testCategory()
+        {
+            Console.WriteLine("使用[TestCategory]标签给每一个测试自定义分类");
+        }
+
         [ClassCleanup]
-        public static  void Classup()
+        public static void Classup()
         {
             calc = null;
+        }
+
+        [TestMethod()]
+        public void isLastFilenameValid_ValidName_ReturnTrue()
+        {
+            Calculator calc = new Calculator();
+            string fileName = "test.txt";
+            calc.isLastFilenameValid(fileName);
+
+            Assert.IsTrue(calc.wasLastFileNameValid);
+            //该测试是测试isLastFilenameValid()，
+            //因为该函数是把结果赋值给类中属性wasLastFileNameValid
+            //所以此处验证的是Calculator类中属性wasLastFileNameValid是否符合我们的期望
+            //而不是简单的验证isLastFilenameValid(）的返回值是否符合我们的期望
         }
     }
 }
